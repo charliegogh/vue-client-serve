@@ -5,7 +5,6 @@
  * 注册
  */
 let DB = require('../../model/db.js');
-
 class UserController {
     // 用户注册
     async register(ctx) {
