@@ -1,5 +1,7 @@
 // DB=require('../model/db.js'),
-const web = require('./web'),
+// const console = require('./console');
+const wrap = require('./wrap');
 router = require('koa-router')();
-router.use(web);
+// router.use(console);
+router.use(wrap);
 module.exports = router.routes();

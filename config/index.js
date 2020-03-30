@@ -5,7 +5,7 @@ module.exports = {
     // dbUser: 'root',
     // dbPassword: 'lckj8520',
     // database: 'mysiteforme',  // 数据表
-    dbUrl:'mongodb://localhost:27017/shop',  // 数据库
+    dbUrl:'mongodb://localhost:27017/cl',  // 数据库
     token: "charlie",
     // mdomain: 'http://icharlie.club/',
     appID: 'wx730666522764a093',

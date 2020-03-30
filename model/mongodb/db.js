@@ -6,7 +6,13 @@ var Schema = mongoose.Schema;
 const listSchema = new Schema({
     name: String,
 })
+const userSchema = new Schema({
+    phone: Number,
+    pwd: String,
+})
+const UserModel = db.model('users',userSchema);
 module.exports = {
     db,
     listSchema,
+    UserModel
 }
