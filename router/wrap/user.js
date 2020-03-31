@@ -1,6 +1,7 @@
 const router = require('koa-router')(),
     md5 = require('md5')
 const {UserModel} = require('../../model/mongodb/db')
+// 登录
 router.post(
     '/wrap/login', async (ctx) => {
         const from = ctx.request.body
@@ -8,16 +9,17 @@ router.post(
         if (data.state) {
             ctx.body = {
                 code: '200',
-                data: data
+                data: data.data._id
             }
         } else {
             ctx.body = {
                 code: '400',
-                data: data.msg
+                msg: data.msg
             }
         }
     }
 )
+// 注册
 router.post(
     '/wrap/register', async (ctx) => {
         let from = ctx.request.body
@@ -25,11 +27,11 @@ router.post(
         const isRegister = await findUser(from, 'register')
         /* 是否可以注册 */
         if (isRegister.state) {
-            const addUser = await addUser(from)
-            if (addUser.state){
+            const {state,msg} = await addUser(from)
+            if (state) {
                 ctx.body = {
                     code: '200',
-                    msg: addUser.msg
+                    msg: msg
                 }
             }
         } else {
@@ -41,6 +43,25 @@ router.post(
 
     }
 )
+// 忘记密码
+router.post(
+    '/wrap/perInformation',async (ctx)=>{
+        const {token}=ctx.request.body
+        const data = await perInformation(token)
+        ctx.body = {
+            code: '200',
+            data: data
+        }
+    }
+)
+function perInformation(userId) {
+    return new Promise((resolve, reject) => {
+        let _id=userId
+        UserModel.find({_id}, (err, ret) => {
+            resolve(ret[0])
+        })
+    })
+}
 /* 查找用户 */
 function findUser(from, type) {
     return new Promise((resolve, reject) => {
@@ -50,16 +71,18 @@ function findUser(from, type) {
                 console.log('查询失败')
             } else {
                 if (type === 'login') {
+                    /* 登录 */
                     if (ret && ret.length === 0) {
                         resolve({state: false, msg: '该账号尚未注册'})
                     } else {
-                        if (pwd !== ret[0].pwd) {
+                        if (md5(pwd) !== ret[0].pwd) {
                             resolve({state: false, msg: '密码错误'})
                         } else {
                             resolve({state: true, data: ret[0]})
                         }
                     }
                 } else {
+                    /* 注册 */
                     if (ret && ret.length !== 0) {
                         resolve({state: false, msg: '该账号已注册'})
                     } else {
@@ -71,14 +94,19 @@ function findUser(from, type) {
         })
     })
 }
+
 /*添加用户*/
-function addUser (from){
-    console.log(from);
+function addUser(from) {
     return new Promise((resolve, reject) => {
-        UserModel.save(from,(err, ret) => {
-            console.log(ret);
-            resolve({state:true,msg:'注册成功'})
+        const model = new UserModel(from)
+        model.save(function (err, ret) {
+            if (err) {
+                console.log(err);
+            } else {
+                resolve({state: true, msg: '注册成功'})
+            }
         })
     })
 }
+
 module.exports = router.routes()
