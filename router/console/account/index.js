@@ -60,7 +60,7 @@ router
                     pid: 2,
                     name: '页面权限',
                     id: 3,
-                    auth: 'page_auth'
+                    auth: 'page_auth',
                 },
                 {
                     pid: 2,

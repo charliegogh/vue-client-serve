@@ -1,10 +1,12 @@
 const account = require('./account'),
     getAreaData = require('./area')
     wechat = require('./area')
+    goods =require('./goods')
 router = require('koa-router')();
 router.use(account);
 router.use(getAreaData);
 router.use(wechat);
+router.use(goods);
 const db = require('../../model/mongodb/db')
 router.get('/', async (ctx, next) => {
     const params = ctx.request.body

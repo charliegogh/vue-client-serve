@@ -48,5 +48,5 @@ node app
 2020年3月30日08:24:59
 > 数据库运行 
 ```javascript
-mongod --dbpath D:\mongodb_data\db
+mongod --dbpath E:\cl-db
 ```
