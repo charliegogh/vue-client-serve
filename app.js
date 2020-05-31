@@ -1,9 +1,8 @@
 /**
  * @author charlie
- * @Description:
+ * @Description:  koa
  */
 'use strict';
-/*实例化koa-router*/
 const Koa = require('koa'),
     router = require('koa-router')(),
     bodyParser = require('koa-bodyparser'),  // body 信息解析
@@ -22,8 +21,6 @@ app.use(cors({
     allowMethods: ['GET', 'POST', 'DELETE'],
     allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
 }))
-
-
 /* 模板引擎,解析.html文件*/
 /*render(app, {
     root: path.join(__dirname, 'views'),
@@ -33,9 +30,10 @@ app.use(cors({
 /* api*/
 const index = require('./router')
 router.use(index);
+
+// 开启路由
 app.use(router.routes()).use(router.allowedMethods());
 const server = app.listen(config.port, on);
-
 function on() {
     const port = server.address().port
     console.log(`server port ${port} listening and open browser with http://localhost:${port}....`);

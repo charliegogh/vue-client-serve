@@ -8,21 +8,26 @@ const secret = 'charlie' // 加密key
  */
 router
   .post('/login', (ctx) => {
-      const { username } = ctx.request.body
-    if (username === 'admin') { // 如果访问的是admin 种植cookie
-      ctx.body = {
-        code: 'success',
-        username: 'admin',
-        token: jwt.sign({ username: 'admin' }, secret, { /* 生成token的主题信息 */
-          expiresIn: 2000 // 20min  过期
-        })
+      try {
+          const { username } = ctx.request.body
+          if (username === 'admin') { // 如果访问的是admin 种植cookie
+              console.log('登录后台')
+              ctx.body = {
+                  code: 'success',
+                  username: 'admin',
+                  token: jwt.sign({ username: 'admin' }, secret, { /* 生成token的主题信息 */
+                      expiresIn: 2000 // 20min  过期
+                  })
+              }
+          } else {
+              ctx.body = {
+                  code: 1,
+                  data: '用户名不存在'
+              }
+          }
+      }catch (e) {
+          console.log(e);
       }
-    } else {
-      ctx.body = {
-        code: 1,
-        data: '用户名不存在'
-      }
-    }
   })
 router
   .post('/getUserData', (ctx) => {

@@ -1,5 +1,8 @@
 const router = require('koa-router')()
 const {goodsModel} = require('../../../model/mongodb/db')
+/**
+ * 添加商品
+ */
 router
     .post('/addGoods',async (ctx)=>{
         const {state,msg} = await addGoods( ctx.request.body)
@@ -10,7 +13,11 @@ router
             }
         }
     })
-/* 获取商品列表 */
+
+
+/**
+ * 获取商品列表
+ */
 router
     .post('/getGoodsList',async (ctx)=>{
         const {pageNo,pageSize}=ctx.query
@@ -30,6 +37,7 @@ router
     })
 
 /**
+ * 分页查找商品
  * @param pageNo
  * @param pageSize
  * @returns {Promise<unknown>}
