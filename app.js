@@ -1,18 +1,18 @@
 /**
  * @author charlie
- * @Description:  koa
+ * @Description:
  */
 'use strict';
 const Koa = require('koa'),
     router = require('koa-router')(),
     bodyParser = require('koa-bodyparser'),  // body 信息解析
-    // render = require('koa-art-template'), // 模板引擎 解析文件信息
-    // path = require('path'), // 路径
     cors = require('koa2-cors'), //跨域
     config = require('./config'), //全局配置
-    app = new Koa();
+    app = new Koa()
 /* bodyParser */
-app.use(bodyParser())
+app.use(bodyParser({
+    enableTypes: ['json', 'form', 'text']
+}))
 /* 跨域 */
 app.use(cors({
     exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
@@ -21,18 +21,12 @@ app.use(cors({
     allowMethods: ['GET', 'POST', 'DELETE'],
     allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
 }))
-/* 模板引擎,解析.html文件*/
-/*render(app, {
-    root: path.join(__dirname, 'views'),
-    extname: '.html',
-    debug: process.env.NODE_ENV !== 'production'
-});*/
-/* api*/
+/* 路由 */
 const index = require('./router')
 router.use(index);
-
-// 开启路由
+// 开启路由 (必须项)
 app.use(router.routes()).use(router.allowedMethods());
+/* 开启服务 */
 const server = app.listen(config.port, on);
 function on() {
     const port = server.address().port
