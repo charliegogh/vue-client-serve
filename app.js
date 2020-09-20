@@ -22,8 +22,7 @@ app.use(cors({
     allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
 }))
 /* 路由 */
-const index = require('./router')
-router.use(index);
+router.use(require('./router'));
 // 开启路由 (必须项)
 app.use(router.routes()).use(router.allowedMethods());
 /* 开启服务 */

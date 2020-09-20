@@ -6,11 +6,12 @@ module.exports = (sequelize, DataTypes) => sequelize.define(
             primaryKey: true,
             autoIncrement: true,
         },
-        nickname: {
+        username: {
             type: DataTypes.STRING,
             allowNull: false,
         },
         password: DataTypes.STRING,
+        headImgUrl: DataTypes.STRING
     },
     {
         tableName: 'sys_user',
