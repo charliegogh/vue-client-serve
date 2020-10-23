@@ -3781,4 +3781,4 @@ var areaList = {
     820201: '离岛'
   }
 };
-module.exports =areaList
+  module.exports =areaList
