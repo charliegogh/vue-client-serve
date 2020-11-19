@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon ./app.js",
+    "ws": "nodemon ./ws/index.js",
     "debug": "nodemon --inspect ./app.js"
   },
   "author": "",
@@ -29,8 +30,10 @@
     "mongoose": "^5.4.17",
     "request": "^2.88.0",
     "util": "^0.11.1",
+    "uuid": "^8.3.1",
     "wechat-oauth": "^1.5.0",
-    "whatwg-fetch": "^3.0.0"
+    "whatwg-fetch": "^3.0.0",
+    "ws": "^7.3.1"
   },
   "devDependencies": {
     "mysql2": "^2.1.0",

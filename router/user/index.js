@@ -46,7 +46,7 @@ function jwtVerify(ctx) {
   const { token } = ctx.request.body;
   jwt.verify(token, secret, (err,decode) => {
     console.log(token+'token');
-    console.log(decode.id+'解析id');
+    // console.log(decode.id+'解析id');
     // 验证token的可靠性
     if (err) {
       // token 过期

@@ -1,17 +1,85 @@
 const { visual } = require("../../models");
 const router = require("koa-router")();
 const base = "/visual/";
+const uuid = require("uuid");
+
 router.get(base + "list", async (ctx) => {
   try {
-    // await visual.create({
-    //   id:'123222',
-    //   title:'123',
-    // })
     const res = await visual.findAll();
-
-    console.log(res);
     ctx.body = {
-      result: "添加成功",
+      code: 0,
+      result: res,
+    };
+  } catch (e) {
+    console.log(e);
+  }
+});
+router.get(base + "find", async (ctx) => {
+  const { id } = ctx.request.query;
+  try {
+    const res = await visual.findAll({
+      where: {
+        id: id,
+      },
+    });
+    ctx.body = {
+      code: 0,
+      result: res[0],
+    };
+  } catch (e) {
+    console.log(e);
+  }
+});
+router.get(base + "add", async (ctx) => {
+  const { id, title, pages } = ctx.request.query;
+  try {
+    const res = await visual.create({
+      id: uuid.v1(),
+      title: title,
+      pages: pages,
+    });
+    ctx.body = {
+      code: 0,
+      result: res,
+    };
+  } catch (e) {
+    console.log(e);
+  }
+});
+router.get(base + "delete", async (ctx) => {
+  const { id } = ctx.request.query;
+  try {
+    const res = await visual.destroy({
+      where: {
+        id: id,
+      },
+    });
+    ctx.body = {
+      code: 0,
+      result: "删除成功",
+    };
+  } catch (e) {
+    console.log(e);
+  }
+});
+router.get(base + "edit", async (ctx) => {
+  const { id, title, pages } = ctx.request.query;
+  console.log(id);
+  try {
+    await visual.update(
+      {
+        title: title,
+        pages: pages,
+      },
+      {
+        where: {
+          id: id,
+        },
+      }
+    );
+    ctx.body = {
+      code: 0,
+      result: "更新成功",
     };
   } catch (e) {
     console.log(e);
