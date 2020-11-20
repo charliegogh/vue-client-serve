@@ -79,7 +79,7 @@ router.get(base + "edit", async (ctx) => {
     );
     ctx.body = {
       code: 0,
-      result: "更新成功",
+      id:id
     };
   } catch (e) {
     console.log(e);

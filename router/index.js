@@ -11,5 +11,9 @@ fs.readdirSync(__dirname)
   .forEach((file) => {
     router.use(require("./" + file));
   });
-
+router.get('/',(ctx) => {
+    ctx.body = {
+        code: "200",
+    };
+});
 module.exports = router.routes();
