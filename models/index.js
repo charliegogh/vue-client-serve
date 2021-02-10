@@ -6,7 +6,6 @@ const path = require("path");
 const basename = path.basename(__filename);
 let sequelize = null;
 sequelize = new Sequelize(config.sequelize);
-// 测试连接
 sequelize
   .authenticate()
   .then(() => {

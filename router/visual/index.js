@@ -79,7 +79,9 @@ router.get(base + "edit", async (ctx) => {
     );
     ctx.body = {
       code: 0,
-      id:id
+      result:{
+        id:id
+      }
     };
   } catch (e) {
     console.log(e);
